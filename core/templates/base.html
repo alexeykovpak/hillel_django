@@ -1,0 +1,55 @@
+<html>
+    {% load static %}
+    <head>
+        <link rel="icon" type="image/png" sizes="16x16"  href="{% static 'favicon.ico' %}">
+        <title>Hillel IT school</title>
+        {% block css %}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'base.css' %}">
+        {% endblock css %}
+        {% block js %}{% endblock js %}
+        {% block meta %}{% endblock meta %}
+    </head>
+    <body style="background-color:rgb(235,235,235); overflow-x:hidden;">
+        
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_EN/sdk.js#xfbml=1&version=v3.2';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        
+        <div class="page-header">
+            <h1>
+                <a href="{% url 'group_list' %}" style="position:absolute; top:1.5em; left:2em;">Group list</a>
+                <a href="{% url 'teacher_list' %}" style="position:absolute; top:1.5em; left:10em;">Teacher list</a>
+                <a href="{% url 'add_group' %}" style="position:absolute; top:1.5em; left:19em;">Add new group</a>
+                <a href="{% url 'add_student' %}" style="position:absolute; top:1.5em; left:30em;">Add new student</a>
+                <a href="{% url 'contact_us' %}" style="position:absolute; top:1.5em; left:42em;">Contact us</a>
+            </h1>
+        </div>
+        <div>
+            <h1><a href="{% url 'group_list' %}" style="text-decoration:none; background-color:rgb(131,170,162); color:white; display:block; text-align:center; margin-top:0em; padding-top:3.5em; padding-bottom:2.5em;">HILLEL IT SCHOOL</a></h1>
+        </div>
+        <img src="{% static 'hillel.png' %}" style="position:absolute; top:35em; left:5em;" alt="School emblem"/>
+        <div class="content container" style="margin-top:5.7em;">
+            <div class="row">
+                <div class="col-md-8"><h1>Hillel IT school site</h1>
+                    {% block content %}
+
+                    {% endblock content %}
+                </div>
+            </div>
+            <p/>
+            <div>
+            <div class="fb-share-button" data-href="https://ithillel.ua/" data-layout="button" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhttps://ithillel.ua/%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+            </div>
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+    </body>
+</html>

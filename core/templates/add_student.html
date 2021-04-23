@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+        {% block content %}
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form|as_bootstrap_horizontal }}
+                <button type="submit">Save the student</button>
+            </form>
+        </div>
+        {% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load core_tags %}
+
+        {% block content %}
+        {% for group in groups %}
+        <div class="container"><br>
+            <div class="card col-md-12">
+              <div class="card-body">
+                <h5 class="card-text">Group name: <b>{{ group.name }}</b></h5>{# название группы #}
+                <br>
+                  <p>There are <b>{{ group.stq }}</b> students in this group</p>{# количество студентов в группе #}
+                  <p>Average age of the students in the group is <b>{{ group.stavg }}</b> y. o.</p>{# средний возраст студентов в группе #}
+                  <p>The oldest student in the group is <b>{{ group.stmax }}</b> y. o.</p>{# максимальный возраст студента в группе #}
+                   <p>The youngest student in the group is <b>{{ group.stmin }}</b> y. o.</p>{# минимальный возраст студента в группе #}
+                  {% for teacher in group.teachers.all %}
+                    <p><b>{{ teacher.name}}</b> is the teacher of this group</p>{# имя учителя #}
+                  {% endfor %}
+              </div>
+            </div><br>
+        </div>
+        {% endfor %}
+        <!--TEST
+        <p>TEST: <b>{{ 'A pope had a dog, he loved her. She ate a piece of meat, and he killed her.'|word_quantity_in_string }}</b></p>
+        <p>TEST: <b>{{ lst|even_numbers_from_object}}</b></p>
+        <p>TEST: <b>{% five_random_teachers %}</b></p>
+        ENDTEST-->
+        {% endblock content %}
+

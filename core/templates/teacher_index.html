@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+        {% block content %}
+        {% for record in object_list %}
+        <div class="container"><br>
+            <div class="card col-md-12">
+              <div class="card-body">
+                <p class="card-text">Teacher's name: <b>{{ record.name }}</b></p>
+                <p class="card-text">Teacher's email: <b>{{ record.email }}</b></p>
+                  {% for group in record.group_set.all %}
+                    <p>The teacher works in this group: <b>{{ group.name}}</b></p>
+                  {% endfor %}
+              </div>
+            </div><br>
+        </div>
+        {% endfor %}
+        {% endblock content %}
