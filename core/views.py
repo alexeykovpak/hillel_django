@@ -3,11 +3,12 @@ from django.views.generic import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.urls.base import reverse_lazy
+import csv
 from core.models import Group, Teacher, Student, Message
 from core.forms import MyGroupForm, MyStudentModelForm
 from .tasks import delete_old_logs
-
-# Create your views here.
+from django.http import HttpResponse
+from django.template import loader
 
 class GroupView(ListView):
     template_name = 'group_index.html'
@@ -15,7 +16,7 @@ class GroupView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(GroupView, self).get_context_data(**kwargs)
-        groups = Group.objects.get_group_with_student_count().prefetch_related('teachers')
+        groups = Group.objects.get_group_with_student_count().prefetch_related('teacher')
         context['groups'] = groups
         context['lst'] = [1, 2, 3, 4, 5, 6, 77, 88] #
         return context
@@ -79,4 +80,13 @@ class ContactUsView(CreateView):
     success_url = reverse_lazy('contact_us_done')
     model = Message
     fields = '__all__'
+
+
+def ReturnCSV_View(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="students.csv"'
+    writer = csv.writer(response)
+    for student in Student.objects.all():
+        writer.writerow([f'{student.name}, {student.age}, {student.email}, {student.group}'])
+    return response
 

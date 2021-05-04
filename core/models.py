@@ -22,7 +22,7 @@ class Teacher(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
-    teachers = models.ManyToManyField(Teacher)
+    teacher = models.ForeignKey(Teacher, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['name']
