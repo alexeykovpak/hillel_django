@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,11 +43,14 @@ INSTALLED_APPS = [
     # Project APPS
 
     'core',
+    'api',
 
     # 3rd party APPS
 
     'debug_toolbar',
     'django_forms_bootstrap',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'core.middlewares.LogMiddleware',
+    #'core.middlewares.LogMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -151,8 +155,12 @@ CELERY_BEAT_SCHEDULE = {
     'my-first-regular-task': {
         'task': 'core.tasks.delete_old_logs',
         'schedule': timedelta(1)
-        }
-    }
+        },
+    'add-every-midnight': {
+        'task': 'core.tasks.generate_new_token',
+        'schedule': crontab(hour=0, minute=0),
+    },
+}
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -172,4 +180,15 @@ SUPPORT_EMAIL_FROM = 'hillel@example.com'
 #EMAIL_USE_TLS = True
 
 #EMAIL_USE_SSL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+               'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+                'rest_framework.permissions.IsAuthenticated',
+    ),
+
+}
+
 
