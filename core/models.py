@@ -22,7 +22,7 @@ class Teacher(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True)
-    teachers = models.ManyToManyField(Teacher)
+    teacher = models.ForeignKey(Teacher, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['name']
@@ -68,4 +68,11 @@ class Log(models.Model):
     def __str__(self):
         show_time = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.start_time)))
         return f'{show_time}, {self.path}'
+
+class CurrencyRateParseData(models.Model):
+    name = models.CharField(max_length=255)
+    rate = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
