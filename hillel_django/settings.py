@@ -191,4 +191,9 @@ REST_FRAMEWORK = {
 
 }
 
+try:
+    from .localsettings import *
+except ImportError:
+    pass
+
 

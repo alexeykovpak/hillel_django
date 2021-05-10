@@ -69,3 +69,10 @@ class Log(models.Model):
         show_time = str(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(self.start_time)))
         return f'{show_time}, {self.path}'
 
+class CurrencyRateParseData(models.Model):
+    name = models.CharField(max_length=255)
+    rate = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
